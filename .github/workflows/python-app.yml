@@ -32,4 +32,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        script: source /var/www/html/fastapi/fastapi/bin/activate && pip install -r requirements.txt && sudo systemctl restart uvicorn     
+        script: |
+          cd /var/www/html/fastapi
+          source /var/www/html/fastapi/fastapi/bin/activate
+          pip install -r requirements.txt
+          sudo systemctl restart uvicorn     
