@@ -10,6 +10,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: Staging
 
     steps:
     - uses: actions/checkout@v4
@@ -23,3 +24,12 @@ jobs:
       
     - name: Test with pytest
       run: pytest
+
+    - name: Deployment to Staging Environment
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: source /var/www/html/fastapi/fastapi/bin/activate && pip install -r requirements.txt && sudo systemctl restart uvicorn     
